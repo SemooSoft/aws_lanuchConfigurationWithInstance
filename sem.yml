@@ -1,0 +1,33 @@
+Description: >
+        Test EC2 / 2022
+
+Resources:
+
+  WebAppLaunchConfig:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          sudo apt-get update -y
+          sudo apt-get install apache2 -y
+          sudo systemctl start apache2.service          
+      
+      ImageId: ami-0729e439b6769d6ab #change image id
+      KeyName: # put your key
+      SecurityGroups:
+        #- sg-0feb29f0ca024d4a8 sample 
+      InstanceType: t2.micro
+      BlockDeviceMappings:
+      - DeviceName: "/dev/sdk"
+        Ebs:
+          VolumeSize: '10'
+  MyEC2Instance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: ami-0729e439b6769d6ab
+      InstanceType: t2.micro
+      SubnetId: subnet-0784e73d7c9e743c3
+      SecurityGroupIds: 
+        - sg-0feb29f0ca024d4a8
+      KeyName: # put your key 
