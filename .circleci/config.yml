@@ -8,19 +8,26 @@ jobs:
       - checkout
       - run:
           name: "Say hello"
-          command: "echo Hello"
+          command: "echo Hello semoo from work space >out.txt"
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - target/application.jar
+            - build/*
 
-  say-World:
+  get_file_from_work_space:
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
-          name: "Say hello"
-          command: "echo $SEMOO_VALUE"
+          name: "get_file_from_work_space"
+          command: "cat out.txt"
 
 workflows:
   say-hello-workflow:
     jobs:
       - say-hello
-      - say-World
+      - get_file_from_work_space
