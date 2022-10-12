@@ -5,15 +5,24 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - checkout
+      - checkout   
+      - run:
+          name: "PWD"
+          command: "pwd"
+      - run:
+          name: "cd"
+          command: "cd"
+      - run:
+          name: "PWD sec"
+          command: "pwd"
       - run:
           name: "make file"
-          command: "echo Hello semoo from work space >/home/circleci/out.txt"
+          command: "echo Hello semoo from work space >~/out.txt"
       - run:
           name: "PWD"
           command: "pwd"
       - persist_to_workspace:
-          root: /home/circleci
+          root: ~/
           paths:
             - out.txt
 
@@ -23,10 +32,10 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /home/circleci
+          at: ~/
       - run:
           name: "get_file_from_work_space"
-          command: "cat /home/circleci/out.txt"
+          command: "cat ~/out.txt"
 
 workflows:
   say-hello-workflow:
