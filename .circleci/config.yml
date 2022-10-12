@@ -16,11 +16,16 @@ jobs:
     steps:
       - checkout
       - run:
+<<<<<<< HEAD
           name: "Say hello"
           command: "echo $SECMOO_VALUE"
+=======
+          name: "Say world"
+          command: "echo World!"
+>>>>>>> 08ed4a40df3fd474a746e72417d1189bb949c5cc
 
 workflows:
   say-hello-workflow:
     jobs:
       - say-hello
-      - say-world
+      - say-World
