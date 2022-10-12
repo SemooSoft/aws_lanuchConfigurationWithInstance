@@ -17,7 +17,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: cat ~/.txt
+      - run: cat ~/out.txt
 
 workflows:
   my_workflow:
