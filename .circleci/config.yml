@@ -17,7 +17,7 @@ jobs:
       - checkout
       - run:
           name: "Say hello"
-          command: "echo World!"
+          command: "echo $SECMOO_VALUE"
 
 workflows:
   say-hello-workflow:
