@@ -1,28 +1,11 @@
 version: 2.1
 
-jobs:
-  save_hello_world_output:
-    docker:
-      - image: circleci/node:13.8.0
+commands:
+  sayhello:
+    description: "A very simple command for demonstration purposes"
+    parameters:
+      to:
+        type: string
+        default: "Hello World"
     steps:
-      - run: "echo hello world > ~/out.txt"
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - out.txt
-
-  print_output_file:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: cat ~/out.txt
-
-workflows:
-  my_workflow:
-    jobs:
-      - save_hello_world_output
-      - print_output_file:
-          requires:
-            - save_hello_world_output
+      - run: echo << parameters.to >>
