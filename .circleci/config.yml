@@ -11,5 +11,5 @@ commands:
       - run: echo << parameters.to >>
 workflows:
   deploy-step-workflow:
-    jobs:
+    commands:
       - sayhello
