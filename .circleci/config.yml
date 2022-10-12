@@ -3,13 +3,12 @@ version: 2.1
 jobs:
   say-hello:
     docker:
-      - image: cimg/base:stable
-    working_directory: ~/
+      - image: circleci/Node:13.8.0
     steps:
       - checkout
       - run:
           name: "make file"
-          command: "echo Hello semoo from work space >> ~/out.txt"
+          command: "echo Hello semoo from work space > ~/out.txt"
       - run:
           name: "PWD"
           command: "pwd"
@@ -20,7 +19,7 @@ jobs:
 
   get_file_from_work_space:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/Node:13.8.0
     steps:
       - checkout
       - attach_workspace:
