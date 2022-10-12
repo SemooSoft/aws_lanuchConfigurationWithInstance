@@ -7,10 +7,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Say hello"
+          name: "make file"
           command: "echo Hello semoo from work space > ~/out.txt"
       - persist_to_workspace:
-          root: ~/
+          root: ~/*
           paths:
             - out.txt
 
@@ -20,7 +20,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/
+          at: ~/*
       - run:
           name: "get_file_from_work_space"
           command: "cat ~/out.txt"
