@@ -4,16 +4,17 @@ jobs:
   say-hello:
     docker:
       - image: cimg/base:stable
+    working_directory: /tmp
     steps:
       - checkout
       - run:
           name: "make file"
-          command: "echo Hello semoo from work space > /home/circleci/out.txt"
+          command: "echo Hello semoo from work space > /tmp/out.txt"
       - run:
           name: "PWD"
           command: "pwd"
       - persist_to_workspace:
-          root: /home/circleci
+          root: /tmp
           paths:
             - out.txt
 
@@ -23,10 +24,10 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /home/circleci
+          at: /tmp
       - run:
           name: "get_file_from_work_space"
-          command: "cat /home/circleci/out.txt"
+          command: "cat /tmp/out.txt"
 
 workflows:
   say-hello-workflow:
