@@ -9,3 +9,7 @@ commands:
         default: "Hello World"
     steps:
       - run: echo << parameters.to >>
+workflows:
+  deploy-step-workflow:
+    jobs:
+      - sayhello
