@@ -1,44 +1,28 @@
-
 version: 2.1
+
 jobs:
-  say-hello:
+  save_hello_world_output:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - checkout   
-      - run:
-          name: "PWD"
-          command: "pwd"
-      - run:
-          name: "cd"
-          command: "cd"
-      - run:
-          name: "PWD sec"
-          command: "pwd"
-      - run:
-          name: "make file"
-          command: "echo Hello semoo from work space >~/out.txt"
-      - run:
-          name: "PWD"
-          command: "pwd"
+      - run: echo "hello world" > ~/output.txt
       - persist_to_workspace:
           root: ~/
           paths:
-            - out.txt
+            - output.txt
 
-  get_file_from_work_space:
+  print_output_file:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - checkout
       - attach_workspace:
           at: ~/
-      - run:
-          name: "get_file_from_work_space"
-          command: "cat ~/out.txt"
+      - run: cat ~/output.txt
 
 workflows:
-  say-hello-workflow:
+  my_workflow:
     jobs:
-      - say-hello
-      - get_file_from_work_space
+      - save_hello_world_output
+      - print_output_file:
+          requires:
+            - save_hello_world_output
