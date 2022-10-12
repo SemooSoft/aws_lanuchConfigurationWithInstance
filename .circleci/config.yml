@@ -13,15 +13,20 @@ jobs:
           root: ~/
           paths:
             - out.txt
+
+  get_file_from_work_space:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
       - attach_workspace:
           at: ~/
       - run:
           name: "get_file_from_work_space"
           command: "cat ~/out.txt"
-      
 
 workflows:
   say-hello-workflow:
     jobs:
       - say-hello
-     
+      - get_file_from_work_space
